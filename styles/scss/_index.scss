@@ -1,0 +1,36 @@
+@mixin flex($alig-items, $justify-content) {
+    display: flex;
+    align-items: $alig-items;
+    justify-content: $justify-content;
+}
+
+@mixin BA($display: block, $pos: absolute, $content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+
+@mixin textFont($size: false, $colour: false, $weight: false, $lh: false) {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $colour {
+        color: $colour;
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $lh {
+        line-height: $lh;
+    }
+}
+
+$main-gray:#5F6579;
+$main-black:#202945;
+$shadows: 0px 3px 20px rgba(0, 0, 0, 0.1);

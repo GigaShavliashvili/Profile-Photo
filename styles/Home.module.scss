@@ -1,0 +1,142 @@
+@use "./scss/index" as *;
+.container {
+  padding: 0 2rem;
+  height: 100vh;
+  background: #DADCE0;
+  @include flex(center, center);
+  &__wrapper{
+    padding: 2rem;
+    background: #FFFFFF;
+  }
+}
+
+.uploadPhoto{
+  text-align: center;
+  p{
+    margin-top: 11px;
+    @include  textFont(14px, $main-black, 400, 21px)
+  }
+
+  & .btn{
+    margin-top: 1rem;
+    label{
+      border:  1px solid $main-black;
+      border-radius: 10px;
+      @include  textFont(14px, $main-black, 600, 17px);
+      padding:10px 25px; 
+    }
+  
+  }
+  & .inpoutUpload{
+    display: none;
+  }
+
+ & .image{
+  position: relative;
+margin-top: 20px;
+overflow: hidden;
+
+& .dragandmatch{
+  position: absolute;
+  z-index: 2;
+  background: #0000005b;
+  border-radius: 10px;
+  padding: 10px;
+  @include flex(center, center);  
+  top: 42px;
+  left: 90px;
+  span{
+    @include  textFont(14px, #FFFFFF, 200, 16px);
+    margin-left: 5px;
+  }
+}
+ }
+}
+
+.uploadedImage{
+width: 360px;
+height: 360px;
+overflow: hidden;
+
+}
+
+.inputRange{
+  margin-top: 30px;
+  width: 100%;
+  @include flex(center, center);
+  
+  input{
+    margin: 0px 14px;
+    width: 100%;
+  }
+
+  span{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
+    cursor: pointer;
+    @include  textFont(40px,
+     $main-black, 100, 16px);
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  ;
+
+  margin-bottom: 5px
+  }
+}
+
+.btns{
+@include flex(center, center);
+  p{
+    margin-top: 25px;
+    min-width: 172px;
+    cursor: pointer;
+    padding: 10px;
+border-radius: 10px;
+  }
+  & :nth-child(1){
+margin-right: 10px;
+border: 1px solid $main-black;
+@include  textFont(14px, $main-black, 200, 16px);
+  }
+  & :nth-child(2){
+    color: #FFFFFF;
+    margin-right: 10px;
+    background: #FF671D;
+      }
+}
+
+.thumb,
+.thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #d3d3d3;
+  outline: none;
+  border-radius: 10px;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+
+
+/* For Chrome browsers */
+.thumb::-webkit-slider-thumb {
+  background: #FFFFFF;
+  border: none;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+.savedImage{
+ border-radius: 50%;
+ overflow: hidden;
+}
