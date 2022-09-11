@@ -25,7 +25,7 @@ export function getRadianAngle(degreeValue) {
   
  
 
-  export default async function getCroppedImg(
+  export async function getCroppedImg(
     imageSrc,
     pixelCrop,
     rotation = 0,

@@ -1,35 +1,35 @@
 import { useState } from "react";
 import Image from "next/image";
-import Cropper from 'react-easy-crop'
+import Cropper from "react-easy-crop";
 import styles from "../styles/Home.module.scss";
-import getCroppedImg from "./cropImage";
+import { getCroppedImg } from "../utils/cropImage";
+
+
 const Home = () => {
 
+
   const [uploadPhoto, setUploadPhoto] = useState(null);
-  const [file, setFile]= useState(null)
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState(1)
-  const [openCrop, setOpenCrop] = useState(false)
+  const [file, setFile] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [openCrop, setOpenCrop] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const onCropComplete = (croppedArea,croppedAreaPixels) => {
-       setCroppedAreaPixels(croppedAreaPixels);
-  }
+  //save image pixels that is cropped
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
 
-
+  //crop image
   const cropImage = async () => {
     try {
-      const { file, url } = await getCroppedImg(
-        uploadPhoto,
-        croppedAreaPixels,
-      );
+      const { file, url } = await getCroppedImg(uploadPhoto, croppedAreaPixels);
 
       setFile(file);
-     setOpenCrop(false);
+      setOpenCrop(false);
     } catch (error) {
       console.log(error);
     }
-
   };
 
   return (
@@ -37,7 +37,7 @@ const Home = () => {
       <div className={styles.container__wrapper}>
         <form action="">
           <div className={styles.uploadPhoto}>
-            <h3 >Profile photo</h3>
+            <h3>Profile photo</h3>
             <p>Add or change the current profile photo</p>
             <div className={styles.btn}>
               <label htmlFor="uploadPhoto">Add photo</label>
@@ -47,27 +47,26 @@ const Home = () => {
               id="uploadPhoto"
               className={styles.inpoutUpload}
               placeholder="Upload"
-         /*      onClick={() =>{
-                setFile(null)
-              }} */
               onChange={(e) => {
-                if(e.target.files[0]){
+                if (e.target.files[0]) {
                   const image = URL.createObjectURL(e.target.files[0]);
                   setUploadPhoto(image);
-                  setOpenCrop(true)
-                  setFile(null)
+                  setOpenCrop(true);
+                  setFile(null);
                 }
               }}
             />
-            <div className={styles.image} >
+            <div className={styles.image}>
               {uploadPhoto && openCrop ? (
-                <div className={styles.dragandmatch}   style={{pointerEvents: "stroke"}}>
+                <div
+                  className={styles.dragandmatch}
+                  style={{ pointerEvents: "stroke" }}
+                >
                   <Image
                     src={"/Group 2646.png"}
                     alt="icon"
                     width={20}
                     height={20}
-                  
                   />
                   <span>drag and match</span>
                 </div>
@@ -78,28 +77,35 @@ const Home = () => {
                   width: "360px",
                 }}
               >
-                
-       
-                  {uploadPhoto && openCrop ? (
-                    <Cropper
-      image={uploadPhoto}
-      crop={crop}
-      zoom={zoom}
-      aspect={4 / 4}
-      cropShape="round"
-      maxZoom={3}
-      zoomSpeed={100}
-      showGrid={false}
-      objectFit="vertical-cover"
-      cropSize={{width:340, height:340}}
-      onCropChange={setCrop}
-      style={{cropAreaStyle:{color:"rgba(255, 255, 255, 0.6)"}}}
-      onCropComplete={onCropComplete}
-      onZoomChange={setZoom}
-    />)
-                   :file ?  <div className={styles.savedImage}>
-                    <Image src={file ? URL.createObjectURL(file) : ""} width={360} height={360}  alt={"save image"}/>
-                   </div> : null}
+                {uploadPhoto && openCrop ? (
+                  <Cropper
+                    image={uploadPhoto}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={4 / 4}
+                    cropShape="round"
+                    maxZoom={3}
+                    zoomSpeed={100}
+                    showGrid={false}
+                    objectFit="vertical-cover"
+                    cropSize={{ width: 340, height: 340 }}
+                    onCropChange={setCrop}
+                    style={{
+                      cropAreaStyle: { color: "rgba(255, 255, 255, 0.6)" },
+                    }}
+                    onCropComplete={onCropComplete}
+                    onZoomChange={setZoom}
+                  />
+                ) : file ? (
+                  <div className={styles.savedImage}>
+                    <Image
+                      src={file ? URL.createObjectURL(file) : ""}
+                      width={360}
+                      height={360}
+                      alt={"save image"}
+                    />
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className={styles.inputRange}>
@@ -117,12 +123,12 @@ const Home = () => {
                 type="range"
                 min="10"
                 max="100"
-                value={zoom*10}
+                value={zoom * 10}
                 className={styles.thumb}
                 onChange={(e) => {
                   const { value } = e.target;
-                  if(!file){
-                    setZoom(+value/10);
+                  if (!file) {
+                    setZoom(+value / 10);
                   }
                 }}
               />
@@ -137,14 +143,22 @@ const Home = () => {
               </span>
             </div>
             <div className={styles.btns}>
-              <p onClick={() =>{
-                window.location.reload()
-              }}>cancel</p>
-              <p onClick={() =>{
-                if(!file){
-                  cropImage() 
-                }
-                }}>save changes</p>
+              <p
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                cancel
+              </p>
+              <p
+                onClick={() => {
+                  if (!file) {
+                    cropImage();
+                  }
+                }}
+              >
+                save changes
+              </p>
             </div>
           </div>
         </form>
